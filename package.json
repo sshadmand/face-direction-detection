@@ -2,7 +2,7 @@
   "name": "base-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sshadmand.github.io/face-direction-detection",
+  "homepage": "https://sshadmand.github.io/face-direction-detection/",
   "scripts": {
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
