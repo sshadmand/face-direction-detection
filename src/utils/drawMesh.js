@@ -1,11 +1,16 @@
 import { TRIANGULATION } from "./triangulation";
 
-let SHOW_MESH, SHOW_TAG_NUMBERS, DRAW_DIRECTION = true
+let SHOW_MESH  = true
+let SHOW_TAG_NUMBERS = true
+let DRAW_DIRECTION = true
 
 export const drawMesh = (prediction, ctx) => {
-  SHOW_MESH = !!localStorage.getItem("MESH");
-  SHOW_TAG_NUMBERS = !!localStorage.getItem("TAGS");
-  DRAW_DIRECTION = !!localStorage.getItem("DIR");
+
+    SHOW_MESH = SHOW_MESH ?? !!localStorage.getItem("MESH");
+    SHOW_TAG_NUMBERS = SHOW_TAG_NUMBERS ?? !!localStorage.getItem("TAGS");
+    DRAW_DIRECTION = DRAW_DIRECTION ?? !!localStorage.getItem("DIR");  
+
+  
 
   if (!prediction) return;
   const keyPoints = prediction.keypoints;

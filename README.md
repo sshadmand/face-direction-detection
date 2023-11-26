@@ -22,4 +22,4 @@ Graphics are implemented on HTML5 Canvas draw methods.
 3. Run `yarn start`
 4. Act weird
 
-![Screenshot!](/src/assets/screenshots.png "Mesh Layers")
+![Screenshot!](https://github.com/sshadmand/face-direction-detection/blob/main/src/assets/screenshots.png?raw=true "Mesh Layers")
