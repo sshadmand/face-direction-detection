@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/face-direction-detection/static/js/main.c9ed6e87.js",
-    "index.html": "/face-direction-detection/index.html",
-    "main.c9ed6e87.js.map": "/face-direction-detection/static/js/main.c9ed6e87.js.map"
+    "main.js": "/face-direction-detection/index.html/static/js/main.c9ed6e87.js",
+    "index.html": "/face-direction-detection/index.html/index.html",
+    "main.c9ed6e87.js.map": "/face-direction-detection/index.html/static/js/main.c9ed6e87.js.map"
   },
   "entrypoints": [
     "static/js/main.c9ed6e87.js"
