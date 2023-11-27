@@ -19,4 +19,5 @@ export const runDetector = async (video, canvas) => {
     detect(detector);
   };
   detect(detector);
+  return true
 };

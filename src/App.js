@@ -18,30 +18,39 @@ const videoConstraints = {
 function App() {
   const canvasRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
+  const [mesh, setMesh] = useState(false);
+  const [tags, setTags] = useState(false);
+  const [dir, setDir] = useState(true);
 
-  const handleVideoLoad = (videoNode) => {
+  const handleVideoLoad = async (videoNode) => {
     const video = videoNode.target;
     if (video.readyState !== 4) return;
     if (loaded) return;
-    runDetector(video, canvasRef.current);
+    await runDetector(video, canvasRef.current);
     setLoaded(true);
   };
   return (
     <div>
-      <Webcam
-        width={inputResolution.width}
-        height={inputResolution.height}
-        style={{ visibility: "hidden", position: "absolute" }}
-        videoConstraints={videoConstraints}
-        onLoadedData={handleVideoLoad}
-      />
-      <canvas
-        ref={canvasRef}
-        width={inputResolution.width}
-        height={inputResolution.height}
-        style={{ position: "absolute" }}
-      />
-      {loaded ? <></> : <header>Loading...</header>}
+      <input type="checkbox" id="show-mesh" checked={mesh} onChange={() => setMesh(!mesh)} /> Show Mesh
+      <input type="checkbox" id="show-tags" checked={tags} onChange={() => setTags(!tags)} /> Show Index Tags
+      <input type="checkbox" id="show-dir" checked={dir} onChange={() => setDir(!dir)} /> Show Direction
+      <div>
+        {loaded ? <></> : <header>Loading...</header>}
+        <Webcam
+          width={inputResolution.width}
+          height={inputResolution.height}
+          style={{ visibility: "hidden", position: "absolute" }}
+          videoConstraints={videoConstraints}
+          onLoadedData={handleVideoLoad}
+        />
+        <canvas
+          ref={canvasRef}
+          width={inputResolution.width}
+          height={inputResolution.height}
+          style={{ position: "absolute", border: "1px solid black" }}
+        />
+      </div>
+      
     </div>
   );
 }

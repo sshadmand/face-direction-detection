@@ -5,12 +5,9 @@ let SHOW_TAG_NUMBERS = true
 let DRAW_DIRECTION = true
 
 export const drawMesh = (prediction, ctx) => {
-
-    SHOW_MESH = SHOW_MESH ?? !!localStorage.getItem("MESH");
-    SHOW_TAG_NUMBERS = SHOW_TAG_NUMBERS ?? !!localStorage.getItem("TAGS");
-    DRAW_DIRECTION = DRAW_DIRECTION ?? !!localStorage.getItem("DIR");  
-
-  
+  SHOW_MESH = document.getElementById('show-mesh').checked
+  SHOW_TAG_NUMBERS = document.getElementById('show-tags').checked
+  DRAW_DIRECTION = document.getElementById('show-dir').checked
 
   if (!prediction) return;
   const keyPoints = prediction.keypoints;
