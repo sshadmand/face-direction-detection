@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/face-direction-detection/static/js/main.c9ed6e87.js",
+    "main.js": "/face-direction-detection/static/js/main.d3003df5.js",
     "index.html": "/face-direction-detection/index.html",
-    "main.c9ed6e87.js.map": "/face-direction-detection/static/js/main.c9ed6e87.js.map"
+    "main.d3003df5.js.map": "/face-direction-detection/static/js/main.d3003df5.js.map"
   },
   "entrypoints": [
-    "static/js/main.c9ed6e87.js"
+    "static/js/main.d3003df5.js"
   ]
 }
