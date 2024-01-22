@@ -26,7 +26,9 @@ function App() {
     const video = videoNode.target;
     if (video.readyState !== 4) return;
     if (loaded) return;
-    await runDetector(video, canvasRef.current);
+    await runDetector(video, canvasRef.current, (data) => {
+      console.log(data)
+    });
     setLoaded(true);
   };
   return (

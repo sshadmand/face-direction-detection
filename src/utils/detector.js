@@ -1,11 +1,11 @@
 // https://magdazelezik.medium.com/face-landmark-detection-in-react-the-right-way-3bcd63e1d108
 import * as faceLandmarksDetection from "@tensorflow-models/face-landmarks-detection";
 import { drawMesh } from "./drawMesh";
-// import model from "../assets/model.json"
-export const runDetector = async (video, canvas) => {
+const DRAW_DELAY = 300; //ms
+export const runDetector = async (video, canvas, cb) => {
   const model = faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh;
   const detectorConfig = {
-    runtime: "tfjs"
+    runtime: "tfjs",
   };
   const detector = await faceLandmarksDetection.createDetector(
     model,
@@ -15,9 +15,14 @@ export const runDetector = async (video, canvas) => {
     const estimationConfig = { flipHorizontal: true };
     const faces = await net.estimateFaces(video, estimationConfig);
     const ctx = canvas.getContext("2d");
-    requestAnimationFrame(() => drawMesh(faces[0], ctx));
-    detect(detector);
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        const angle = drawMesh(faces[0], ctx)
+        cb(angle)
+      });
+      detect(detector);
+    }, DRAW_DELAY);
   };
   detect(detector);
-  return true
+  return <></>;
 };

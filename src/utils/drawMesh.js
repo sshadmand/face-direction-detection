@@ -17,8 +17,8 @@ export const drawMesh = (prediction, ctx) => {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
   // DRAW AND CALCULATE STUFF
-  calculateDirection(ctx, keyPoints, DRAW_DIRECTION);
   drawFaceMesh(ctx, keyPoints, SHOW_TAG_NUMBERS, SHOW_MESH);
+  return calculateDirection(ctx, keyPoints, DRAW_DIRECTION);
 };
 
 function calculateDirection(ctx, keyPoints, draw) {
@@ -35,23 +35,50 @@ function calculateDirection(ctx, keyPoints, draw) {
   const midpoint = {
     x: (leftNose.x + rightNose.x) / 2,
     y: (leftNose.y + rightNose.y) / 2,
+    z: (leftNose.z + rightNose.z) / 2,
   };
-  const perpendicularUp = { x: midpoint.x, y: midpoint.y - 50 };
+  const perpendicularUp = { x: midpoint.x, y: midpoint.y - 50, z:  midpoint.z };
 
-  // CALC ANGLE
-  const angle = getAngleBetweenLines(midpoint, noseTip, perpendicularUp);
+  // CALC ANGLES
+  const yaw = getAngleBetweenLines(midpoint, noseTip, perpendicularUp);
+  const turn = getAngleBetweenLines(midpoint, rightNose, noseTip);
 
   if (draw) {
+    const region2 = new Path2D();
+    region2.moveTo(leftNose.x, leftNose.y);
+    region2.lineTo(noseTip.x, noseTip.y);
+    region2.lineTo(rightNose.x, rightNose.y);
+    region2.lineTo(midpoint.x, midpoint.y);
+    region2.lineTo(leftNose.x, leftNose.y);
+    region2.closePath();
+    ctx.fillStyle = "brown";
+    ctx.stroke(region2);
+    ctx.fillText(Math.trunc(turn) + "°", rightNose.x + 10, rightNose.y);
+    ctx.fill(region2);
+
     const region = new Path2D();
     region.moveTo(midpoint.x, midpoint.y);
     region.lineTo(perpendicularUp.x, perpendicularUp.y);
     region.lineTo(noseTip.x, noseTip.y);
+    region.lineTo(midpoint.x, midpoint.y);
     region.closePath();
     ctx.fillStyle = "red";
     ctx.stroke(region);
-    ctx.fillText(Math.trunc(angle) + "°", midpoint.x + 10, midpoint.y);
+    ctx.fillText(Math.trunc(yaw) + "°", midpoint.x + 10, midpoint.y);
     ctx.fill(region);
   }
+
+  // CALC DISTANCE BETWEEN NOSE TIP AND MIDPOINT, AND LEFT AND RIGHT NOSE POINTS
+  const zDistance = getDistanceBetweenPoints(noseTip, midpoint)
+  const xDistance = getDistanceBetweenPoints(leftNose, rightNose)
+
+  return {yaw, turn, zDistance, xDistance}
+}
+
+function getDistanceBetweenPoints(point1, point2) {
+  const xDistance = point1.x - point2.x;
+  const yDistance = point1.y - point2.y;
+  return Math.sqrt(xDistance * xDistance + yDistance * yDistance);
 }
 
 function getAngleBetweenLines(midpoint, point1, point2) {
